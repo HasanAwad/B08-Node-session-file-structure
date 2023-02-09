@@ -1,4 +1,4 @@
-const Student = require('../models/student');
+const Student = require("../models/student");
 
 class StudentsController {
   getAll(req, res, next) {
@@ -18,7 +18,11 @@ class StudentsController {
 
   post(req, res, next) {
     let body = req.body;
-    let student = new Student(body);
+    let student = new Student({
+      username: req.body.username,
+      name: req.body.name,
+      image: req.file.path,
+    });
     student.save((err, response) => {
       if (err) return next(err);
       res.status(200).send(response);
